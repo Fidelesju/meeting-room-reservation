@@ -1,5 +1,118 @@
-﻿################################################################################
-# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
-################################################################################
+# .NET Core / .NET 5+ / .NET 6+ artifacts
+obj/
+bin/
+*.dll
+*.pdb
+*.exe
+*.suo
+*.user
+*.vscode
+*.vs
 
-/Projetos
+# Visual Studio files
+.vscode/
+.vs/
+*.sln
+*.suo
+*.userprefs
+*.csproj
+*.xproj
+*.sw?
+*.sln.docstates
+
+# Rider files
+.idea/
+
+# NuGet
+packages/
+*.nupkg
+*.paket/paket.exe
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+*.suo
+*.userosscache
+*.userprefs
+
+# Windows Installer
+*.cab
+*.msi
+*.msm
+*.msp
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Tye
+.tye/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Xamarin
+bin/
+obj/
+*.userprefs
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+*.suo
+*.userosscache
+*.userprefs
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+*.suo
+*.userosscache
+*.userprefs
