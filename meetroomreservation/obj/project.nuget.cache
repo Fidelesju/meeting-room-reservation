@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "nj+cr/ZaQ5c+eF69sZt3TNVHIMNzomETui9PzCay3uizS6Va9MU1rVMWp771V4ppalXZryDBw0csci9Qj+R7rQ==",
+  "dgSpecHash": "eSX2936XQeterv23/1iprbj0GhSkX83DVU6xEgq4ULGDr77jFhutcplO2vXrDPEFrZmJGc08oOdmoOvd+IuBSQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Julia Fideles\\OneDrive\\Documentos\\Documentos\\Git\\portfolio\\meeting-room-reservation\\meetroomreservation\\meetroomreservation.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Julia Fideles\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Julia Fideles\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Julia Fideles\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
     "C:\\Users\\Julia Fideles\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Julia Fideles\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.21\\microsoft.aspnetcore.authentication.jwtbearer.6.0.21.nupkg.sha512",
