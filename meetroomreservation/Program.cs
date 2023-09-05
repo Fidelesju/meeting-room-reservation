@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddControllers();
 //Connection to database
 string mySqlConnection = 
     builder.Configuration.GetConnectionString("DefaultConnection");
@@ -43,8 +44,9 @@ app.MapRazorPages();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "APISaudacao v1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MeetRoomReservation v1");
 });
+
 
 app.Run();
 
