@@ -1,3 +1,4 @@
+using meetroomreservation.Controller;
 using meetroomreservation.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -15,6 +16,7 @@ string mySqlConnection =
 builder.Services.AddDbContext<MeetRoomReservationContext>(options =>
     options.UseMySql(mySqlConnection,
         ServerVersion.AutoDetect(mySqlConnection)));
+builder.Services.RegisterService();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -23,7 +25,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
-
+app.MapControllers();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
