@@ -25,17 +25,17 @@ namespace meetroomreservation.Application.Controller
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult<BaseResponse<int>>> CreateUser (UserCreateRequestModel userRequest)
+        public async Task<ActionResult<BaseResponse<int>>> CreateUser(UserCreateRequestModel request)
         {
             BaseResponse<int> response;
             int id;
 
             try
             {
-                id =  await _userService.CreateUser(userRequest);
-                if(id == 0)
+                id = await _userService.CreateUser(request);
+                if (id == 0)
                 {
-                    response =  BaseResponse<int>
+                    response = BaseResponse<int>
                         .Builder()
                         .SetMessage("Falha ao cadastrar um novo usuário!")
                         .SetData(0)
@@ -43,18 +43,90 @@ namespace meetroomreservation.Application.Controller
                     return BadRequest(response);
                 }
 
-                 response =  BaseResponse<int>
-                        .Builder()
-                        .SetMessage("Usuário cadastrado com sucesso!")
-                        .SetData(id)
-                    ;
-                    return Ok(response);
+                response = BaseResponse<int>
+                       .Builder()
+                       .SetMessage("Usuário cadastrado com sucesso!")
+                       .SetData(id)
+                   ;
+                return Ok(response);
             }
             catch (CustomValidationException exception)
             {
                 return ValidationErrorsBadRequest(exception);
             }
-            catch(Exception exception)
+            catch (Exception exception)
+            {
+                return await UntreatedException(exception);
+            }
+        }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult<BaseResponse<string>>> UpdateUser(UserUpadateRequestModel request)
+        {
+            BaseResponse<string> response;
+            bool success;
+
+            try
+            {
+                success = await _userService.UpdateUser(request);
+                if (!success)
+                {
+                    response = BaseResponse<string>
+                            .Builder()
+                            .SetMessage("Falha na atualização do usuário.")
+                            .SetData("")
+                        ;
+                    return BadRequest(response);
+                }
+
+                response = BaseResponse<string>
+                        .Builder()
+                        .SetMessage("Usuário atualizado com sucesso")
+                        .SetData("")
+                    ;
+                return Ok(response);
+            }
+            catch (CustomValidationException exception)
+            {
+                return ValidationErrorsBadRequest(exception);
+            }
+            catch (Exception exception)
+            {
+                return await UntreatedException(exception);
+            }
+        }
+
+        [HttpPost("Update/Password")]
+        public async Task<ActionResult<BaseResponse<bool>>> UpdateUserPassword(UserUpdatePasswordRequestModel request)
+        {
+            BaseResponse<bool> response;
+            bool success;
+
+            try
+            {
+                success = await _userService.UpdateUserPassword(request);
+                if (!success)
+                {
+                    response = BaseResponse<bool>
+                            .Builder()
+                            .SetMessage("Falha ao atualizar senha do usuário.")
+                            .SetData(false)
+                        ;
+                    return BadRequest(response);
+                }
+
+                response = BaseResponse<bool>
+                        .Builder()
+                        .SetMessage("Usuário atualizado com sucesso")
+                        .SetData(true)
+                    ;
+                return Ok(response);
+            }
+            catch (CustomValidationException exception)
+            {
+                return ValidationErrorsBadRequest(exception);
+            }
+            catch (Exception exception)
             {
                 return await UntreatedException(exception);
             }
