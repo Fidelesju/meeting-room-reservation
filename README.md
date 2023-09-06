@@ -1,7 +1,8 @@
 # Meeting Room Reservation
 
 Bem-vindo ao Meeting Room Reservation, um sistema de reservas de salas de reunião desenvolvido utilizando ASP.NET Core, Entity Framework e SQL Server. Este projeto permite que os usuários agendem e gerenciem reservas de salas de reunião, facilitando a organização de encontros eficientes e produtivos.
-###Status: Em desenvolvimento
+
+### Status: Em desenvolvimento
 ## Recursos Principais
 
 - Reservas de Salas: Os usuários podem visualizar a disponibilidade das salas e criar reservas para datas e horários específicos.
