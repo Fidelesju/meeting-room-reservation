@@ -30,6 +30,7 @@ namespace meetroomreservation.Controller
             services.AddScoped<IEmailManagementService, EmailManagementService>();
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IAccessService, AccessService>();
+            services.AddScoped<ISchedulingService, SchedulingService>();
 
         }
         private static void ConfigurationDbsDependeyInjection(IServiceCollection services)
@@ -40,11 +41,13 @@ namespace meetroomreservation.Controller
         private static void ConfigurationMapperDependeyInjection(IServiceCollection services)
         {
             services.AddScoped<IUserCreateMapper, UserCreateMapper>();
+            services.AddScoped<ISchedulingCreateMapper, SchedulingCreateMapper>();
             services.AddScoped<IUserUpdateMapper, UserUpdateMapper>();
         }
         private static void ConfigurationRepositoriesDependeyInjection(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISchedulingRepository, SchedulingRepository>();
         }
     }
 }

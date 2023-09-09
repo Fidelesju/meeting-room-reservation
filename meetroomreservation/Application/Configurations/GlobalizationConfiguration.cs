@@ -11,7 +11,7 @@ namespace meetroomreservation.Controller
     {
         public static IApplicationBuilder UseGlobalizationConfiguration(this IApplicationBuilder app)
         {
-            CultureInfo defaultCulture = new CultureInfo("en-US");
+            CultureInfo defaultCulture = new CultureInfo("pt-BR");
             RequestLocalizationOptions localizationOptions = new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(defaultCulture),
