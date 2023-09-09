@@ -14,5 +14,6 @@ namespace meetroomreservation.Data.Models
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Scheduling> Scheduling { get; set; }
     }
 }
