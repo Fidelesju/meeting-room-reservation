@@ -4,7 +4,7 @@ namespace meetroomreservation.Business.Mapper
 {
     public class Mapper<T> : IMapper<T>
     {
-        protected T BaseMapping;
+        protected T? BaseMapping;
 
         public void SetBaseMapping(T baseMapping)
         {

@@ -1,7 +1,7 @@
+using meetroomreservation.CoreServices.Interfaces;
+using ServiceStack;
 using System.Net;
 using System.Net.Mail;
-using ServiceStack;
-using meetroomreservation.CoreServices.Interfaces;
 
 namespace meetroomreservation.Business.CoreServices
 {

@@ -1,4 +1,3 @@
-
 namespace meetroomreservation.Business.Utils
 {
     public class BusinessRulesConstants

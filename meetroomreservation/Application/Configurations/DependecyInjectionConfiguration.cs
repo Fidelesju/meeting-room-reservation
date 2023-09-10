@@ -42,6 +42,7 @@ namespace meetroomreservation.Controller
         {
             services.AddScoped<IUserCreateMapper, UserCreateMapper>();
             services.AddScoped<ISchedulingCreateMapper, SchedulingCreateMapper>();
+            services.AddScoped<ISchedulingUpdateMapper, SchedulingUpdateMapper>();
             services.AddScoped<IUserUpdateMapper, UserUpdateMapper>();
         }
         private static void ConfigurationRepositoriesDependeyInjection(IServiceCollection services)

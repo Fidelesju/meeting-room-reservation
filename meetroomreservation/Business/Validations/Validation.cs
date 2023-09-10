@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using meetroomreservation.Data.ApplicationModels;
-using FluentValidation.Results;
 using FluentValidation;
+using FluentValidation.Results;
+using meetroomreservation.Data.ApplicationModels;
 
 namespace meetroomreservation.Business.Validations
 {
-   public abstract class Validation<T> : AbstractValidator<T>
+    public abstract class Validation<T> : AbstractValidator<T>
     {
         private Dictionary<string, string> _errors;
         private ValidationResult _validationResult;

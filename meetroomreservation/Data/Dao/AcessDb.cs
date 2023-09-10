@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace meetroomreservation.Data.Dao
 {
-     public class AcessDb
+    public class AcessDb
     {
         public readonly IConfiguration Configuration;
         public readonly IWebHostEnvironment HostingEnviroment;

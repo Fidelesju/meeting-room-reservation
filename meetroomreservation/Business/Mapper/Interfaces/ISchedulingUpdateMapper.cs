@@ -3,8 +3,9 @@ using meetroomreservation.Data.RequestModel;
 
 namespace meetroomreservation.Business.Mapper.Interfaces
 {
-    public interface IUserUpdateMapper : IMapper<UserUpadateRequestModel>
+    public interface ISchedulingUpdateMapper
     {
-        public User GetUser();
+        Scheduling GetScheduling();
+        void SetBaseMapping(SchedulingUpdateRequestModel request);
     }
 }

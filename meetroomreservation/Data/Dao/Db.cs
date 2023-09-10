@@ -1,18 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using meetroomreservation.Data.ApplicationModels;
 using meetroomreservation.Data.Expections;
 using meetroomreservation.Data.Models;
 using MySqlConnector;
+using System.Data;
+using System.Data.Common;
+using System.Text.RegularExpressions;
 
 namespace meetroomreservation.Data.Dao
 {
-   public abstract class Db<T> : AcessDb
+    public abstract class Db<T> : AcessDb
     {
         private MySqlCommand _command;
         private MySqlConnection _connection;

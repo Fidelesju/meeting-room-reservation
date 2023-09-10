@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using meetroomreservation.Business.Exceptions;
 using meetroomreservation.Business.Services.Interfaces;
 using meetroomreservation.CoreServices.Interfaces;
@@ -26,13 +22,14 @@ namespace meetroomreservation.Application.Controller
             _schedulingService = schedulingService;
         }
         #endregion
+
         #region Methods
         [HttpPost("Create")]
         public async Task<ActionResult<BaseResponse<int>>> CreateScheduling (SchedulingCreateRequest request)
         {
             BaseResponse<int> response;
             int id;
-            
+
             try
             {
                 id = await _schedulingService.CreateScheduling(request);
@@ -61,6 +58,51 @@ namespace meetroomreservation.Application.Controller
                 return await UntreatedException(exception);
             }
         }
+
+        /// <summary>
+        /// Alteração de agendamentos
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns> <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("Update")]
+        public async Task<ActionResult<BaseResponse<bool>>> UpdateScheduling (SchedulingUpdateRequestModel request)
+        {
+            BaseResponse<bool> response;
+            bool success;
+
+            try
+            {
+                success = await _schedulingService.UpdateScheduling(request);
+                if(!success)
+                {
+                    response = BaseResponse<bool>
+                        .Builder()
+                        .SetMessage("Falha ao atualizar agendamento")
+                        .SetData(false)
+                        ;
+                    return BadRequest(response);
+                }
+                    response = BaseResponse<bool>
+                        .Builder()
+                        .SetMessage("Agendamento atualizado com sucesso!")
+                        .SetData(success)
+                        ;
+                    return Ok(response);
+            }
+            catch (CustomValidationException exception)
+            {
+                return ValidationErrorsBadRequest(exception);
+            }
+            catch (Exception exception)
+            {
+                return await UntreatedException(exception);
+            }
+        }
+        
         #endregion
     }
 }

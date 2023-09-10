@@ -13,17 +13,20 @@ namespace meetroomreservation.Business.Services
     {
         #region Variables
         private readonly ISchedulingCreateMapper _schedulingCreateMapper;
+        private readonly ISchedulingUpdateMapper _schedulingUpdateMapper;
         private readonly ISchedulingRepository _schedulingRepository;
         #endregion
 
         #region Constructor
         public SchedulingService(
             ISchedulingCreateMapper schedulingCreateMapper,
-            ISchedulingRepository schedulingRepository
+            ISchedulingRepository schedulingRepository,
+            ISchedulingUpdateMapper schedulingUpdateMapper
         )
         {
             _schedulingCreateMapper = schedulingCreateMapper;
             _schedulingRepository = schedulingRepository;
+            _schedulingUpdateMapper = schedulingUpdateMapper;
         }
         #endregion
         #region Methods
@@ -55,6 +58,36 @@ namespace meetroomreservation.Business.Services
                 scheduling = _schedulingCreateMapper.GetScheduling();
                 _schedulingRepository.Create(scheduling);
                 return Task.FromResult(scheduling.Id);
+            }
+            catch (DbUpdateException exception)
+            {
+                errors = validation.GetPersistenceErrors(exception);
+                if (errors.Count == 0)
+                {
+                    throw;
+                }
+                throw new CustomValidationException(errors);
+            }
+        }
+
+        public Task<bool> UpdateScheduling (SchedulingUpdateRequestModel request)
+        {
+            Scheduling scheduling;
+            SchedulingUpdateValidation validation;
+            Dictionary<string, string> errors;
+
+            _schedulingUpdateMapper.SetBaseMapping(request);
+            validation = new SchedulingUpdateValidation();
+            if (!validation.IsValid(request))
+            {
+                errors = validation.GetErrors();
+                throw new CustomValidationException(errors);
+            }
+            try
+            {
+                scheduling = _schedulingUpdateMapper.GetScheduling();
+                _schedulingRepository.Update(scheduling);
+                return Task.FromResult(true);
             }
             catch (DbUpdateException exception)
             {
