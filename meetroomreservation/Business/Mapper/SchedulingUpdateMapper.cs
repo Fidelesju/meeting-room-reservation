@@ -4,19 +4,21 @@ using meetroomreservation.Data.RequestModel;
 
 namespace meetroomreservation.Business.Mapper
 {
-    public class SchedulingCreateMapper : Mapper<SchedulingCreateRequest>, ISchedulingCreateMapper
+    public class SchedulingUpdateMapper : Mapper<SchedulingUpdateRequestModel>, ISchedulingUpdateMapper
     {
         private readonly Scheduling _scheduling;
 
-        public SchedulingCreateMapper()
+        public SchedulingUpdateMapper()
         {
             _scheduling = new Scheduling();
         }
 
         public Scheduling GetScheduling()
         {
+            _scheduling.Id = BaseMapping.Id;
             _scheduling.UserId = BaseMapping.UserId;
-            _scheduling.Data = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd hh:mm"));
+            _scheduling.Data = BaseMapping.GetDataAsDateTime();
+            // _scheduling.Data = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd hh:mm"));
             return _scheduling;
         }
     }

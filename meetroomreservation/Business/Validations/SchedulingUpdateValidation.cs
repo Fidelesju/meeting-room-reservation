@@ -4,9 +4,9 @@ using meetroomreservation.Data.RequestModel;
 
 namespace meetroomreservation.Business.Validations
 {
-    public class SchedulingCreateValidation : Validation<SchedulingCreateRequest>
+    public class SchedulingUpdateValidation : Validation<SchedulingUpdateRequestModel>
     {
-        public SchedulingCreateValidation()
+          public SchedulingUpdateValidation()
         {
             ValidateId();
         }

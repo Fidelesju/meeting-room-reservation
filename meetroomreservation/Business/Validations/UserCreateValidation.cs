@@ -1,6 +1,6 @@
+using FluentValidation;
 using meetroomreservation.Data.ApplicationModels;
 using meetroomreservation.Data.RequestModel;
-using FluentValidation;
 
 namespace meetroomreservation.Business.Validations
 {
