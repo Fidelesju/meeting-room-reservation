@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using meetroomreservation.CoreServices.Interfaces;
+using System.Diagnostics;
+using System.Security.Claims;
 
 namespace meetroomreservation.CoreServices
 {

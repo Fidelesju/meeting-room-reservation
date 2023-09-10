@@ -1,4 +1,3 @@
-
 namespace meetroomreservation.Data.RequestModel
 {
     public class UserUpadateRequestModel
