@@ -23,5 +23,17 @@ namespace meetroomreservation.Data.Repositories
             DbSet.Update(scheduling);
             Context.SaveChanges();
         }
+
+        public async Task<bool> Delete (int id)
+        {
+            string sql;
+            int rowsAffected;
+            sql = @"
+                    DELETE FROM scheduling
+                WHERE id = {0};
+                ";
+            rowsAffected = await Context.Database.ExecuteSqlRawAsync(sql, id);
+            return rowsAffected > 0;
+        }
     }
 }
