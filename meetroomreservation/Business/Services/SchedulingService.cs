@@ -128,6 +128,24 @@ namespace meetroomreservation.Business.Services
 
             return schedulingList;
         }
+
+        public async Task<bool> DeleteSchedulingByUserId(int id)
+        {
+            bool success;
+            Dictionary<string,string> errors;
+            SchedulingDeleteValidation validation;
+            validation = new SchedulingDeleteValidation();
+            try
+            {
+                success = await _schedulingRepository.Delete(id);
+                return success;
+            }
+            catch (DbUpdateException exception)
+            {
+                errors = validation.GetPersistenceErrors(exception);
+                throw new CustomValidationException(errors);
+            }
+        }
         #endregion
     }
 }

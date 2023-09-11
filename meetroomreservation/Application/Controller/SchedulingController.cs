@@ -109,6 +109,13 @@ namespace meetroomreservation.Application.Controller
             }
         }
         
+        /// <summary>
+        /// Buscando agendamentos por user Id (Paginado)
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="page"></param>
+        /// <param name="perPage"></param>
+        /// <returns></returns>
         [HttpGet("Page/{page}/PerPage{perPage}/userId")]
         public async Task<ActionResult<BaseResponse<PaginatedList<SchedulingResponseModel>>>> GetPaginatedListSchedulingByUserId (int userId, int page, int perPage)
         {
@@ -134,6 +141,46 @@ namespace meetroomreservation.Application.Controller
             catch (RecordNotFoundException exception)
             {
                 return await NotFoundResponse(exception);
+            }
+            catch (Exception exception)
+            {
+                return await UntreatedException(exception);
+            }
+        }
+
+        /// <summary>
+        /// Deletando um agendamento por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("Delete")]
+        public async Task<ActionResult<BaseResponse<bool>>> DeleteSchedulingByUserId (int id)
+        {
+            BaseResponse<bool> response;
+            bool success;
+
+            try
+            {
+                success = await _schedulingService.DeleteSchedulingByUserId(id);
+                if(!success)
+                {
+                    response = BaseResponse<bool>
+                        .Builder()
+                        .SetMessage("Falha ao deletar agendamento")
+                        .SetData(false)
+                        ;
+                    return BadRequest(response);
+                }
+                    response = BaseResponse<bool>
+                        .Builder()
+                        .SetMessage("Agendamento deletado com sucesso!")
+                        .SetData(success)
+                        ;
+                    return Ok(response);
+            }
+            catch (CustomValidationException exception)
+            {
+                return ValidationErrorsBadRequest(exception);
             }
             catch (Exception exception)
             {
