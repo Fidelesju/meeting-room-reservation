@@ -91,6 +91,11 @@ namespace meetroomreservation.Application.Controller
             }
         }
 
+        /// <summary>
+        /// alterando senha
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("Update/Password")]
         public async Task<ActionResult<BaseResponse<bool>>> UpdateUserPassword(UserUpdatePasswordRequestModel request)
         {
@@ -116,6 +121,46 @@ namespace meetroomreservation.Application.Controller
                         .SetData(true)
                     ;
                 return Ok(response);
+            }
+            catch (CustomValidationException exception)
+            {
+                return ValidationErrorsBadRequest(exception);
+            }
+            catch (Exception exception)
+            {
+                return await UntreatedException(exception);
+            }
+        }
+
+        /// <summary>
+        /// Deletando um usuario por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost("Delete")]
+        public async Task<ActionResult<BaseResponse<bool>>> DeleteUserById (int id)
+        {
+            BaseResponse<bool> response;
+            bool success;
+
+            try
+            {
+                success = await _userService.DeleteUserById(id);
+                if(!success)
+                {
+                    response = BaseResponse<bool>
+                        .Builder()
+                        .SetMessage("Falha ao deletar usuário")
+                        .SetData(false)
+                        ;
+                    return BadRequest(response);
+                }
+                    response = BaseResponse<bool>
+                        .Builder()
+                        .SetMessage("Usuário deletado com sucesso!")
+                        .SetData(success)
+                        ;
+                    return Ok(response);
             }
             catch (CustomValidationException exception)
             {

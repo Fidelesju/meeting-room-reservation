@@ -144,6 +144,25 @@ namespace meetroomreservation.Business.Services
                 throw new CustomValidationException(errors);
             }
         }
+
+
+           public async Task<bool> DeleteUserById(int id)
+        {
+            bool success;
+            Dictionary<string,string> errors;
+            UserDeleteValidation validation;
+            validation = new UserDeleteValidation();
+            try
+            {
+                success = await _userRepository.Delete(id);
+                return success;
+            }
+            catch (DbUpdateException exception)
+            {
+                errors = validation.GetPersistenceErrors(exception);
+                throw new CustomValidationException(errors);
+            }
+        }
         #endregion
     }
 }
