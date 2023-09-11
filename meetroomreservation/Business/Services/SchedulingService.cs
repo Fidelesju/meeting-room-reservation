@@ -129,7 +129,7 @@ namespace meetroomreservation.Business.Services
             return schedulingList;
         }
 
-        public async Task<bool> DeleteSchedulingByUserId(int id)
+        public async Task<bool> DeleteSchedulingById(int id)
         {
             bool success;
             Dictionary<string,string> errors;

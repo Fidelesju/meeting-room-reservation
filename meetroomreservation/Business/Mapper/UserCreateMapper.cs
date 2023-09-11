@@ -21,7 +21,9 @@ namespace meetroomreservation.Business.Mapper
             _user.Email = BaseMapping.Email;
             _user.Password = hashMd5.EncryptMD5(BaseMapping.Password);
             _user.Name = BaseMapping.Name;
+            _user.IsActive = 1;
             return _user;
+        
         }
     }
 }

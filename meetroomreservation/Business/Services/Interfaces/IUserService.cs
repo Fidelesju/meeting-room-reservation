@@ -7,5 +7,6 @@ namespace meetroomreservation.Business.Services.Interfaces
         Task<int> CreateUser (UserCreateRequestModel request);
         Task<bool> UpdateUser(UserUpadateRequestModel request);
         Task<bool> UpdateUserPassword(UserUpdatePasswordRequestModel request);
+        Task<bool> DeleteUserById(int id);
     }
 }
