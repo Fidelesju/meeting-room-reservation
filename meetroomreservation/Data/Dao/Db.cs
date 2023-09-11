@@ -173,9 +173,35 @@ namespace meetroomreservation.Data.Dao
             {
                 _sql = sql.Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
                 ;
+
+                commandSql = _queryIsPaginated ? _paginatedSql : _sql;
+                _command = new MySqlCommand(commandSql, _connection);
+                AddBindsToCommand();
+                await _command.PrepareAsync();
+                _reader = await _command.ExecuteReaderAsync();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                await Disconnect();
+                string message =
+                    "Exception of type 'MeetRoomReservation.Data.Exceptions.DatabaseQueryFailureException' was thrown.";
+                message += "SQL: " + commandSql;
+                throw new DatabaseQueryFailureException(message, exception);
+            }
+        }
+        
+         protected async Task<bool> QueryPagination(string sql, int page, int perPage)
+        {
+            string commandSql;
+            commandSql = "";
+            try
+            {
+                _sql = sql.Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
+                ;
                 if (_queryIsPaginated)
                 {
-                    AssemblePaginatedSql();
+                    AssemblePaginatedSql(page, perPage);
                 }
 
                 commandSql = _queryIsPaginated ? _paginatedSql : _sql;
@@ -194,7 +220,6 @@ namespace meetroomreservation.Data.Dao
                 throw new DatabaseQueryFailureException(message, exception);
             }
         }
-
         protected async Task<bool> PersistQuery(string sql)
         {
             string commandSql;
@@ -241,16 +266,14 @@ namespace meetroomreservation.Data.Dao
             return id;
         }
 
-        private void AssemblePaginatedSql()
+        private void AssemblePaginatedSql(int page, int perPage)
         {
-            _paginatedSql += _sql + " LIMIT @paginationOffset, @paginationLimit";
-            AddIntegerBind("paginationOffset", _pagination.Offset());
-            AddIntegerBind("paginationLimit", _pagination.Limit());
+            _paginatedSql += _sql + " LIMIT " + page + ", " + perPage + ";";
         }
 
         protected void SetPagination(Pagination pagination)
         {
-            _pagination = pagination;
+            _pagination = pagination ?? throw new ArgumentNullException(nameof(pagination));
             if (pagination.CurrentPage <= 0)
             {
                 pagination.CurrentPage = 1;

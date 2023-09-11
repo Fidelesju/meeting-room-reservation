@@ -2,6 +2,8 @@ using meetroomreservation.Business.Exceptions;
 using meetroomreservation.Business.Mapper.Interfaces;
 using meetroomreservation.Business.Services.Interfaces;
 using meetroomreservation.Business.Validations;
+using meetroomreservation.Data.ApplicationModels;
+using meetroomreservation.Data.Dao.Interfaces;
 using meetroomreservation.Data.Models;
 using meetroomreservation.Data.Repositories.Interfaces;
 using meetroomreservation.Data.RequestModel;
@@ -15,18 +17,22 @@ namespace meetroomreservation.Business.Services
         private readonly ISchedulingCreateMapper _schedulingCreateMapper;
         private readonly ISchedulingUpdateMapper _schedulingUpdateMapper;
         private readonly ISchedulingRepository _schedulingRepository;
+        private readonly ISchedulingDb _schedulingDb;
         #endregion
 
         #region Constructor
         public SchedulingService(
             ISchedulingCreateMapper schedulingCreateMapper,
             ISchedulingRepository schedulingRepository,
-            ISchedulingUpdateMapper schedulingUpdateMapper
+            ISchedulingUpdateMapper schedulingUpdateMapper,
+            ISchedulingDb schedulingDb
         )
         {
             _schedulingCreateMapper = schedulingCreateMapper;
             _schedulingRepository = schedulingRepository;
             _schedulingUpdateMapper = schedulingUpdateMapper;
+            _schedulingDb = schedulingDb;
+
         }
         #endregion
         #region Methods
@@ -69,7 +75,17 @@ namespace meetroomreservation.Business.Services
                 throw new CustomValidationException(errors);
             }
         }
-
+        
+        /// <summary>
+        /// alterando agendamento
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="CustomValidationException"></exception> <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public Task<bool> UpdateScheduling (SchedulingUpdateRequestModel request)
         {
             Scheduling scheduling;
@@ -98,6 +114,19 @@ namespace meetroomreservation.Business.Services
                 }
                 throw new CustomValidationException(errors);
             }
+        }
+
+        public async Task<PaginatedList<SchedulingResponseModel>> GetPaginatedListSchedulingByUserId (int userId, int page, int perPage, Pagination pagination)
+        {
+            PaginatedList<SchedulingResponseModel> schedulingList;
+            schedulingList = await _schedulingDb.GetPaginatedListSchedulingByUserId(userId,page, perPage, pagination);
+
+           if (PaginatedList<SchedulingResponseModel>.IsEmpty(schedulingList))
+            {
+                throw new RecordNotFoundException();
+            }
+
+            return schedulingList;
         }
         #endregion
     }
