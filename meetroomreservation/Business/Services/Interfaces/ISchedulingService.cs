@@ -9,5 +9,6 @@ namespace meetroomreservation.Business.Services.Interfaces
         Task<int> CreateScheduling(SchedulingCreateRequest request);
         Task<bool> UpdateScheduling (SchedulingUpdateRequestModel request);
         Task<PaginatedList<SchedulingResponseModel>> GetPaginatedListSchedulingByUserId (int userId, int page, int perPage, Pagination pagination);
+        Task<bool> DeleteSchedulingByUserId(int id);
     }
 }

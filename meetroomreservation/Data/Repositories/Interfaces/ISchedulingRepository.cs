@@ -6,5 +6,6 @@ namespace meetroomreservation.Data.Repositories.Interfaces
     {
         int Create(Scheduling scheduling);
         void Update(Scheduling scheduling);
+        Task<bool> Delete (int id);
     }
 }
