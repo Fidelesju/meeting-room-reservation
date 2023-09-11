@@ -2,6 +2,7 @@ using meetroomreservation.Business.Exceptions;
 using meetroomreservation.Business.Services.Interfaces;
 using meetroomreservation.CoreServices.Interfaces;
 using meetroomreservation.Data.ApplicationModels;
+using meetroomreservation.Data.Models;
 using meetroomreservation.Data.RequestModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,11 @@ namespace meetroomreservation.Application.Controller
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Criando agendamento 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("Create")]
         public async Task<ActionResult<BaseResponse<int>>> CreateScheduling (SchedulingCreateRequest request)
         {
@@ -65,7 +71,7 @@ namespace meetroomreservation.Application.Controller
         /// <param name="request"></param>
         /// <returns></returns> <summary>
         /// 
-        /// </summary>
+        /// </summary>e
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("Update")]
@@ -103,6 +109,37 @@ namespace meetroomreservation.Application.Controller
             }
         }
         
+        [HttpGet("Page/{page}/PerPage{perPage}/userId")]
+        public async Task<ActionResult<BaseResponse<PaginatedList<SchedulingResponseModel>>>> GetPaginatedListSchedulingByUserId (int userId, int page, int perPage)
+        {
+            PaginatedList<SchedulingResponseModel> schedulingModel;
+            BaseResponse<PaginatedList<SchedulingResponseModel>> response;
+            Pagination pagination;
+
+            try
+            {
+                pagination = Pagination
+                        .Builder()
+                        .SetCurrentPage(page)
+                        .SetPerPage(perPage)
+                    ;
+                schedulingModel = await _schedulingService.GetPaginatedListSchedulingByUserId(userId,page, perPage,pagination);
+                response = BaseResponse<PaginatedList<SchedulingResponseModel>>
+                        .Builder()
+                        .SetMessage("Agendamentos encontrados com sucesso.")
+                        .SetData(schedulingModel)
+                    ;
+                return Ok(response);
+            }
+            catch (RecordNotFoundException exception)
+            {
+                return await NotFoundResponse(exception);
+            }
+            catch (Exception exception)
+            {
+                return await UntreatedException(exception);
+            }
+        }
         #endregion
     }
 }
