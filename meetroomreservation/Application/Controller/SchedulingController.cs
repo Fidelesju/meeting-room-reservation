@@ -154,14 +154,14 @@ namespace meetroomreservation.Application.Controller
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost("Delete")]
-        public async Task<ActionResult<BaseResponse<bool>>> DeleteSchedulingByUserId (int id)
+        public async Task<ActionResult<BaseResponse<bool>>> DeleteSchedulingById (int id)
         {
             BaseResponse<bool> response;
             bool success;
 
             try
             {
-                success = await _schedulingService.DeleteSchedulingByUserId(id);
+                success = await _schedulingService.DeleteSchedulingById(id);
                 if(!success)
                 {
                     response = BaseResponse<bool>

@@ -43,5 +43,18 @@ namespace meetroomreservation.Data.Repositories
             rowsAffected = await Context.Database.ExecuteSqlRawAsync(sql, password, userId);
             return rowsAffected > 0;
         }
+
+        public async Task<bool> Delete(int id)
+        {
+            string sql;
+            int rowsAffected;
+            sql = @"
+                  UPDATE users
+                    SET isActive = 0
+                    WHERE id = {0};
+                ";
+            rowsAffected = await Context.Database.ExecuteSqlRawAsync(sql, id);
+            return rowsAffected > 0;
+        }
     }
 }
